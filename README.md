@@ -1,5 +1,5 @@
 # ChatBot
-Machine Learning ChatBot using llma 3
+Data Science  ChatBot using Mistral-7B
 
 ### Steps to run Project
 
