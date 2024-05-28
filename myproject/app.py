@@ -46,17 +46,31 @@ qa=RetrievalQA.from_chain_type(
 def index():
     return render_template("chat.html")
 
-@app.route("/get",methods=['POST'])
+# @app.route("/get", methods=['POST'])
+# def chat():
+#     msg = request.form.get('messageText')  # Use get() instead of direct access
+#     if msg is None:
+#         return "No message text provided"
+    
+#     input_text = msg
+#     print(input_text)
+#     result = qa({'query': input_text})
+#     print("Response:", result['result'])
+#     # return str(result['result'])
+#     return jsonify(result['result'])
+
+@app.route("/get", methods=['POST'])
 def chat():
-    msg=request.form['msg']
-    input=msg
-    print(input)
-    result=qa({'query':input})
-    print("Response:",result['result'])
-    return str(result['result'])
+    msg = request.form.get('messageText')
+    if msg:
+        result = qa({'query': msg})
+        answer = result.get('answer', result['result'])
+        return jsonify({"answer": answer})
+    return jsonify({"answer": "No message text provided"})
+
 
 
 if __name__=="__main__":
-     app.run(debug=True, use_reloader=False, port=8000)
+     app.run(debug=True)
 
 
